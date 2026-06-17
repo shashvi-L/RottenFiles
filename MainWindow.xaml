@@ -18,7 +18,7 @@
                     <Image Grid.Column="0" Source="{Binding FileIcon}" Width="32" Height="32" VerticalAlignment="Top" Margin="0,0,8,0"/>
                     <!-- Info -->
                     <StackPanel Grid.Column="1">
-                        <TextBlock Text="{Binding FileName}" FontWeight="Bold" TextTrimming="CharacterEllipsis" ToolTip="{Binding FilePath}"/>
+                        <TextBlock Text="{Binding DisplayName}" FontWeight="Bold" TextTrimming="CharacterEllipsis" ToolTip="{Binding FilePath}"/>
                         <TextBlock Text="{Binding DateAdded, StringFormat='Saved on {0:MMM dd, yyyy}'}" FontSize="11" Foreground="Gray"/>
                         <TextBlock Text="{Binding CountdownText}" FontSize="12" Foreground="{Binding CountdownColor}"/>
                     </StackPanel>

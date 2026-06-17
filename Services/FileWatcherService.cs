@@ -29,7 +29,7 @@ public class FileWatcherService : IDisposable
         _watcher = new FileSystemWatcher(WatchedFolder)
         {
             NotifyFilter = NotifyFilters.FileName,
-            IncludeSubdirectories = false,
+            IncludeSubdirectories = true,
             EnableRaisingEvents = true,
             InternalBufferSize = 65536   // 64 KB
         };
@@ -113,23 +113,18 @@ public class FileWatcherService : IDisposable
     {
         try
         {
-            // All files currently on disk
-            var diskFiles = Directory.GetFiles(WatchedFolder);
-
-            // All records in DB regardless of status, keyed by file path
-            var allDbFiles = ((DatabaseService)_db).GetAllDbFiles();   // explicit, no ambiguity   // we'll add a helper
+            var diskFiles = Directory.GetFiles(WatchedFolder, "*", SearchOption.AllDirectories);
+            var allDbFiles = ((DatabaseService)_db).GetAllDbFiles();
             var dbPaths = allDbFiles.Select(f => f.FilePath).ToHashSet();
 
             foreach (var diskFile in diskFiles)
             {
                 if (!dbPaths.Contains(diskFile))
                 {
-                    // Completely new file
                     _db.AddFile(diskFile);
                 }
                 else
                 {
-                    // File exists in DB — if it's deleted, reactivate it
                     var existing = allDbFiles.FirstOrDefault(f => f.FilePath == diskFile);
                     if (existing != null && existing.Status != "Active")
                     {
@@ -138,7 +133,6 @@ public class FileWatcherService : IDisposable
                 }
             }
 
-            // Mark active files that are no longer on disk as deleted
             var activeFiles = _db.GetActiveFiles();
             foreach (var file in activeFiles)
             {

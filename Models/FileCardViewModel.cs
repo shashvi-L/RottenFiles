@@ -35,6 +35,25 @@ public class FileCardViewModel : INotifyPropertyChanged
         }
     }
 
+    public string RelativePath => GetRelativePath(_record.FilePath);
+
+    private static string GetRelativePath(string fullPath)
+    {
+        try
+        {
+            string watched = Config.WatchedFolder;
+            if (fullPath.StartsWith(watched, StringComparison.OrdinalIgnoreCase))
+            {
+                string relative = fullPath.Substring(watched.Length).TrimStart(Path.DirectorySeparatorChar);
+                return relative;
+            }
+        }
+        catch { }
+        return Path.GetFileName(fullPath);
+    }
+
+    public string DisplayName => RelativePath;
+
     private async Task LoadIconAsync()
     {
         try

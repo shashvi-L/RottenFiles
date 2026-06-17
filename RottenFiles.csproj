@@ -6,10 +6,15 @@
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<DisableWinFormsImplicitUsings>true</DisableWinFormsImplicitUsings>
+		<ApplicationIcon>Resources\Icons\rotten.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <None Remove="Resources\Icons\rotten.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Icons\rotten.ico" />
 	</ItemGroup>
 
 	<ItemGroup>

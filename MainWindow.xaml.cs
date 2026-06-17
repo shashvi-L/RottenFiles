@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using RottenFiles.Models;
+using RottenFiles.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -7,10 +10,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Microsoft.Win32;
-using RottenFiles.Models;
-using RottenFiles.Services;
 
 namespace RottenFiles;
 
@@ -32,6 +33,7 @@ public partial class MainWindow : Window
         InitializeComponent();
 
         Config.Load();
+        this.Icon = LoadWindowIcon();
 
         _db = new DatabaseService();
         _notificationService = new NotificationService(_db);
@@ -70,6 +72,7 @@ public partial class MainWindow : Window
         RefreshFileList();
 
         this.Hide();
+        this.ShowInTaskbar = false;
     }
 
     private void Refresh_Click(object sender, RoutedEventArgs e)
@@ -94,6 +97,26 @@ public partial class MainWindow : Window
         _currentTrayIcon = newIcon;
         _trayService.SetIcon(newIcon);
         _trayService.SetToolTip($"RottenFiles - {urgentCount} file(s) expiring within 24h");
+    }
+
+    private System.Windows.Media.ImageSource LoadWindowIcon()
+    {
+        try
+        {
+            var uri = new Uri("pack://application:,,,/RottenFiles;component/Resources/Icons/rotten.ico");
+            var streamInfo = Application.GetResourceStream(uri);
+            if (streamInfo?.Stream != null)
+            {
+                var decoder = new System.Windows.Media.Imaging.IconBitmapDecoder(
+                    streamInfo.Stream,
+                    BitmapCreateOptions.None,
+                    BitmapCacheOption.OnLoad);
+                return decoder.Frames[0]; // first frame of the .ico
+            }
+        }
+        catch { }
+        // Fallback: null (will show default icon)
+        return null;
     }
 
     private Icon CreateNumberedIcon(Icon baseIcon, int count)
@@ -160,6 +183,7 @@ public partial class MainWindow : Window
 
     private void ShowMainWindow()
     {
+        this.ShowInTaskbar = true;
         _fileWatcher?.ScanNow();
         RefreshFileList();
         this.Show();
@@ -214,6 +238,7 @@ public partial class MainWindow : Window
     protected override void OnClosing(CancelEventArgs e)
     {
         e.Cancel = true;
+        this.ShowInTaskbar = false;
         this.Hide();
     }
 
