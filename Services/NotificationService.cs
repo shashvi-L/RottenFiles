@@ -10,9 +10,7 @@ public class NotificationService
 {
     private readonly DatabaseService _db;
 
-    /// <summary>
-    /// Fires when a notification message is ready to be shown (e.g. in a tray balloon).
-    /// </summary>
+    /// <summary>Fires when a notification should be shown (title, body).</summary>
     public event Action<string, string>? OnNotificationReady;
 
     public NotificationService(DatabaseService db) => _db = db;
@@ -45,9 +43,9 @@ public class NotificationService
         foreach (var file in files)
         {
             var notifyTime = file.ExpiryDate - offset;
-            if (notifyTime <= DateTime.Now && !file.Notified24h)
+            if (notifyTime <= DateTime.UtcNow && !file.Notified24h)
             {
-                var remaining = file.ExpiryDate - DateTime.Now;
+                var remaining = file.ExpiryDate - DateTime.UtcNow;
                 var hours = Math.Max(0, Math.Round(remaining.TotalHours));
                 string title = $"Expiring soon: {Path.GetFileName(file.FilePath)}";
                 string body = $"Expires in {hours} hour(s).";
@@ -66,14 +64,13 @@ public class NotificationService
         if (Config.LastDigestDate == todayStr) return;
 
         var digestTime = DateTime.Today.Add(TimeSpan.Parse(Config.DigestTime));
-        if (DateTime.Now < digestTime) return;
+        if (DateTime.UtcNow < digestTime) return;
 
         var rotten = files.Count(f => f.Urgency == FileUrgency.Rotten);
-        var overripe = files.Count(f => f.Urgency == FileUrgency.Overripe);
-        if (rotten + overripe == 0) return;
+        if (rotten == 0) return;
 
         string title = "RottenFiles Daily Digest";
-        string body = $"You have {rotten} rotten and {overripe} overripe file(s).";
+        string body = $"You have {rotten} rotten file(s).";
 
         OnNotificationReady?.Invoke(title, body);
 

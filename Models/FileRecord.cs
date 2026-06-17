@@ -5,7 +5,6 @@ namespace RottenFiles.Models;
 public enum FileUrgency
 {
     Ripe,
-    Overripe,
     Rotten
 }
 
@@ -23,9 +22,7 @@ public class FileRecord
     {
         get
         {
-            var remaining = ExpiryDate.Date - DateTime.Today;
-            if (remaining.TotalDays <= 0) return FileUrgency.Rotten;
-            if (remaining.TotalDays <= Config.OverripeDays) return FileUrgency.Overripe;
+            if (ExpiryDate <= DateTime.UtcNow) return FileUrgency.Rotten;
             return FileUrgency.Ripe;
         }
     }

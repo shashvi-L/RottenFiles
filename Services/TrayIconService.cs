@@ -98,4 +98,12 @@ public class TrayIconService : IDisposable
         }
         _notifyIcon?.Dispose();
     }
+    public void ShowBalloonTip(string title, string text)
+    {
+        lock (_lock)
+        {
+            _notifyIcon?.ShowBalloonTip(5000, title, text, ToolTipIcon.Info);
+        }
+    }
+
 }

@@ -13,7 +13,6 @@ public partial class SettingsWindow : Window
 
         // Load current settings
         ExpiryDaysBox.Text = Config.ExpiryDays.ToString();
-        OverripeDaysBox.Text = Config.OverripeDays.ToString();
         FolderTextBox.Text = Config.WatchedFolder;
 
         foreach (ComboBoxItem item in NotificationModeCombo.Items)
@@ -60,11 +59,8 @@ public partial class SettingsWindow : Window
     {
         if (!int.TryParse(ExpiryDaysBox.Text, out int expiry) || expiry < 1)
         { MessageBox.Show("Expiry days must be a positive number."); return; }
-        if (!int.TryParse(OverripeDaysBox.Text, out int overripe) || overripe < 1)
-        { MessageBox.Show("Overripe days must be a positive number."); return; }
 
         Config.ExpiryDays = expiry;
-        Config.OverripeDays = overripe;
         if (NotificationModeCombo.SelectedItem is ComboBoxItem modeItem)
             Config.NotificationMode = Enum.Parse<NotificationMode>(modeItem.Tag.ToString()!);
         if (int.TryParse(CustomDaysBox.Text, out int customDays))

@@ -63,7 +63,7 @@ public class DatabaseService : IDisposable
             {
                 Id = reader.GetInt32(0),
                 FilePath = reader.GetString(1),
-                DateAdded = DateTime.Parse(reader.GetString(2)),
+                DateAdded = DateTime.Parse(reader.GetString(2), null, System.Globalization.DateTimeStyles.RoundtripKind),
                 Status = reader.GetString(3),
                 Notified24h = reader.GetBoolean(4)
             });

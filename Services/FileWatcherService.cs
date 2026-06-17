@@ -90,7 +90,7 @@ public class FileWatcherService : IDisposable
         var activeFiles = _db.GetActiveFiles();
         foreach (var file in activeFiles)
         {
-            if (file.ExpiryDate <= DateTime.Now)
+            if (file.ExpiryDate <= DateTime.UtcNow)
             {
                 try
                 {

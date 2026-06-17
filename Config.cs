@@ -13,7 +13,6 @@ public static class Config
 
     // Default values
     public static int ExpiryDays { get; set; } = 7;
-    public static int OverripeDays { get; set; } = 2;
     public static NotificationMode NotificationMode { get; set; } = NotificationMode.DailyDigest;
     public static int CustomNotificationDays { get; set; } = 3;
     public static string WatchedFolder { get; set; } = @"C:\RottenFiles";
@@ -30,7 +29,6 @@ public static class Config
             if (cfg != null)
             {
                 ExpiryDays = cfg.ExpiryDays;
-                OverripeDays = cfg.OverripeDays;
                 NotificationMode = cfg.NotificationMode;
                 CustomNotificationDays = cfg.CustomNotificationDays;
                 WatchedFolder = cfg.WatchedFolder;
@@ -49,7 +47,6 @@ public static class Config
         var data = new SettingsData
         {
             ExpiryDays = ExpiryDays,
-            OverripeDays = OverripeDays,
             NotificationMode = NotificationMode,
             CustomNotificationDays = CustomNotificationDays,
             WatchedFolder = WatchedFolder,
@@ -64,7 +61,6 @@ public static class Config
     private class SettingsData
     {
         public int ExpiryDays { get; set; }
-        public int OverripeDays { get; set; }
         public NotificationMode NotificationMode { get; set; }
         public int CustomNotificationDays { get; set; }
         public string WatchedFolder { get; set; } = string.Empty;

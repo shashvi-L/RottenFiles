@@ -135,7 +135,7 @@ public class FileCardViewModel : INotifyPropertyChanged
     {
         get
         {
-            var remaining = _record.ExpiryDate - DateTime.Now;
+            var remaining = _record.ExpiryDate - DateTime.UtcNow;
             if (remaining.TotalMinutes <= 0)
                 return "Expired";
             if (remaining.TotalDays < 1)
@@ -148,11 +148,9 @@ public class FileCardViewModel : INotifyPropertyChanged
     {
         get
         {
-            if (_record.Urgency == FileUrgency.Rotten)
-                return new SolidColorBrush(System.Windows.Media.Color.FromRgb(220, 50, 50));
-            if (_record.Urgency == FileUrgency.Overripe)
-                return new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 165, 0));
-            return new SolidColorBrush(System.Windows.Media.Color.FromRgb(60, 179, 113));
+            return _record.Urgency == FileUrgency.Rotten
+                ? new SolidColorBrush(System.Windows.Media.Color.FromRgb(220, 50, 50))
+                : new SolidColorBrush(System.Windows.Media.Color.FromRgb(60, 179, 113));
         }
     }
 }

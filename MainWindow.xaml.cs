@@ -38,6 +38,14 @@ public partial class MainWindow : Window
         _db = new DatabaseService();
         _notificationService = new NotificationService(_db);
 
+        _notificationService.OnNotificationReady += (title, body) =>
+        {
+            Dispatcher.Invoke(() =>
+            {
+                _trayService?.ShowBalloonTip(title, body);
+            });
+        };
+
         // Tray service
         _trayService = new TrayIconService();
         _trayService.OpenWindowRequested += () => Dispatcher.Invoke(ShowMainWindow);
@@ -89,7 +97,7 @@ public partial class MainWindow : Window
         // Files expiring within 24 hours (includes already expired)
         // Only files that are still active and will expire within the next 24 hours
         int urgentCount = files.Count(f =>
-            f.ExpiryDate > DateTime.Now && f.ExpiryDate <= DateTime.Now.AddHours(24));
+            f.ExpiryDate > DateTime.UtcNow && f.ExpiryDate <= DateTime.UtcNow.AddHours(24));
 
         var newIcon = CreateNumberedIcon(GetIconSafe("rotten.ico"), urgentCount);
         if (_currentTrayIcon != null && _currentTrayIcon != newIcon)
