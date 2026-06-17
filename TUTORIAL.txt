@@ -1,0 +1,74 @@
+=============================
+  ROTTENFILES – QUICK GUIDE
+=============================
+
+What is RottenFiles?
+--------------------
+RottenFiles is a tiny tray app that automatically deletes files you
+leave in a special folder after a set number of days.  Think of it
+like a "self‑cleaning Downloads folder".
+
+
+Getting started
+---------------
+1. Double‑click RottenFiles.exe.
+   - The app starts minimised in the system tray (near the clock).
+   - Look for the rotten apple icon.
+
+2. The default watched folder is:
+   C:\RottenFiles
+   (You can change this in Settings later.)
+
+3. When you save a file from any program, choose that folder.
+   Example:
+   - In your browser, download a PDF to C:\RottenFiles.
+   - In WhatsApp Web, save an image to C:\RottenFiles.
+
+4. RottenFiles will track every file added to that folder.
+
+5. After 7 days (by default), the file is automatically deleted.
+   No confirmation, no prompts – it just goes.
+
+
+How to keep a file
+-------------------
+- Click the tray icon to open the main window.
+- You'll see a list of all tracked files, sorted by urgency.
+- Each file has two buttons:
+    Keep  – moves the file to a folder you choose.
+    Delete Now – removes it immediately (after confirmation).
+- If you do nothing, the file will be deleted when it expires.
+
+
+Tray icon meaning
+-------------------
+- Rotten apple (always shown) – the app is watching your folder.
+- A red badge appears in the bottom‑right corner of the icon
+  showing how many files will expire within the next 24 hours.
+
+
+Settings
+--------
+- Right‑click the tray icon → Settings.
+- Expiry (days): How long files stay before being deleted.
+- Notify me: When to show a balloon‑tip reminder.
+- Watched folder: Change the folder you want RottenFiles to watch.
+- Start with Windows: Automatically run RottenFiles when you log in.
+
+
+Tips
+----
+- You can create subfolders inside your watched folder to stay
+  organised.  RottenFiles tracks files everywhere inside it.
+- If you change the watched folder, RottenFiles will clear its
+  old list and start fresh.
+- To quit the app completely, right‑click the tray icon → Quit.
+
+
+Need help?
+-----------
+This app is open source.  Visit the GitHub page to report issues:
+
+https://github.com/shashvi-L/RottenFiles
+
+Enjoy a clutter‑free downloads folder!
