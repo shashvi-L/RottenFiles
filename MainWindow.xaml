@@ -1,0 +1,55 @@
+﻿<Window x:Class="RottenFiles.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RottenFiles" Height="450" Width="650"
+        WindowStyle="SingleBorderWindow"
+        Background="White">
+    <Window.Resources>
+        <!-- Data template for a single file card -->
+        <DataTemplate x:Key="FileCardTemplate">
+            <Border BorderBrush="#ddd" BorderThickness="1" CornerRadius="8" Margin="5" Padding="10" Background="#f9f9f9">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- File type icon (system icon) -->
+                    <Image Grid.Column="0" Source="{Binding FileIcon}" Width="32" Height="32" VerticalAlignment="Top" Margin="0,0,8,0"/>
+                    <!-- Info -->
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{Binding FileName}" FontWeight="Bold" TextTrimming="CharacterEllipsis" ToolTip="{Binding FilePath}"/>
+                        <TextBlock Text="{Binding DateAdded, StringFormat='Saved on {0:MMM dd, yyyy}'}" FontSize="11" Foreground="Gray"/>
+                        <TextBlock Text="{Binding CountdownText}" FontSize="12" Foreground="{Binding CountdownColor}"/>
+                    </StackPanel>
+                    <!-- Action buttons -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Content="Keep" Width="70" Margin="2" CommandParameter="{Binding}" Click="Keep_Click"/>
+                        <Button Content="Delete Now" Width="80" Margin="2" CommandParameter="{Binding}" Click="DeleteNow_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Top bar with settings gear -->
+        <Border Grid.Row="0" Background="#eee" Padding="8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="⟳ Refresh" Width="80" Height="30" Margin="0,0,10,0"
+                Background="Transparent" BorderBrush="Gray" BorderThickness="1"
+                Click="Refresh_Click" ToolTip="Refresh file list immediately"/>
+                <Button Content="⚙" Width="30" Height="30" Click="Settings_Click"
+                Background="Transparent" BorderThickness="0"/>
+            </StackPanel>
+        </Border>
+        <!-- Scrollable list of cards -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="FileCardsControl" ItemTemplate="{StaticResource FileCardTemplate}" />
+        </ScrollViewer>
+    </Grid>
+</Window>

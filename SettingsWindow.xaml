@@ -1,0 +1,70 @@
+﻿<Window x:Class="RottenFiles.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" Height="350" Width="400"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Expiry days -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,5">
+            <Label Width="120">Expiry (days):</Label>
+            <TextBox x:Name="ExpiryDaysBox" Width="50" />
+        </StackPanel>
+
+        <!-- Overripe threshold -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5">
+            <Label Width="120">Overripe days:</Label>
+            <TextBox x:Name="OverripeDaysBox" Width="50" />
+        </StackPanel>
+
+        <!-- Notification mode -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5">
+            <Label Width="120">Notify me:</Label>
+            <ComboBox x:Name="NotificationModeCombo" Width="150">
+                <ComboBoxItem Content="Never" Tag="None"/>
+                <ComboBoxItem Content="24 hours before" Tag="TwentyFourHours"/>
+                <ComboBoxItem Content="5 days before" Tag="FiveDays"/>
+                <ComboBoxItem Content="Daily digest" Tag="DailyDigest"/>
+                <ComboBoxItem Content="Custom days before" Tag="CustomOffset"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Custom days (hidden until custom selected) -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5" x:Name="CustomDaysPanel" Visibility="Collapsed">
+            <Label Width="120">Days before:</Label>
+            <TextBox x:Name="CustomDaysBox" Width="50" />
+        </StackPanel>
+
+        <!-- Digest time (hidden unless digest mode) -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,5" x:Name="DigestTimePanel" Visibility="Collapsed">
+            <Label Width="120">Digest time:</Label>
+            <TextBox x:Name="DigestTimeBox" Width="60" Text="09:00" />
+        </StackPanel>
+
+        <!-- Watched folder -->
+        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,5">
+            <Label Width="120">Watched folder:</Label>
+            <TextBox x:Name="FolderTextBox" Width="180" IsReadOnly="True"/>
+            <Button Content="..." Width="25" Click="BrowseFolder_Click"/>
+        </StackPanel>
+
+        <!-- Auto-start -->
+        <CheckBox Grid.Row="6" x:Name="StartupCheckBox" Content="Start with Windows" Margin="0,15"/>
+
+        <!-- Save/Cancel -->
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Save" Click="Save_Click" Width="70" Margin="5"/>
+            <Button Content="Cancel" Click="Cancel_Click" Width="70" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>
