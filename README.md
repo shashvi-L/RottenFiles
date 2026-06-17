@@ -2,7 +2,7 @@
 
 A lightweight Windows tray app that automatically deletes junk files after a set number of days, unless you tell it to keep them.
 
-![RottenFiles main window](screenshots/main-window.png)
+![RottenFiles main window](screenshots/rottenfiles.gif)
 
 ## Why I built this
 
