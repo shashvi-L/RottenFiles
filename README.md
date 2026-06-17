@@ -1,12 +1,12 @@
 # RottenFiles
 
-A lightweight Windows tray app that automatically deletes junk files after a set number of days — unless you tell it to keep them.
+A lightweight Windows tray app that automatically deletes junk files after a set number of days, unless you tell it to keep them.
 
 ![RottenFiles main window](screenshots/main-window.png)
 
 ## Why I built this
 
-My Downloads folder was a graveyard. Random PDFs from WhatsApp Web, installer files I ran once, screenshots I took for a single Slack message — all of it just sat there forever because deleting things manually requires remembering they exist in the first place. By the time I noticed a file, I had no idea if I still needed it or where it even came from.
+My Downloads folder was a graveyard. Random PDFs from WhatsApp Web, installer files I ran once, screenshots I took for a single Slack message! All of it just sat there forever because deleting things manually requires remembering they exist in the first place. By the time I noticed a file, I had no idea if I still needed it or where it even came from.
 
 RottenFiles is a "soft delete" buffer for your downloads. Save anything you're not sure about into a watched folder, set an expiry window, and forget about it. If you never think about the file again, it deletes itself. If you suddenly need it, one click rescues it before time runs out.
 
